@@ -13,7 +13,7 @@
   ],
   "services": {
     "web": {
-      "cmd": "exec .venv/bin/datasette serve fixtures.db --reload --host 0.0.0.0 --port \"$PORT\"",
+      "cmd": "cd /workspace/app && /workspace/app/.venv/bin/python -m datasette serve /workspace/app/fixtures.db --reload --host 0.0.0.0 --port \"$PORT\"",
       "port": 8001,
       "url": true,
       "healthcheck": {
