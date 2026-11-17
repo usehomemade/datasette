@@ -1,0 +1,26 @@
+{
+  "$schema": "https://homemade.dev/schemas/latest/config.json",
+  "setup": [],
+  "warmup": [
+    "python -m venv .venv && .venv/bin/python -m pip install -e . --group dev",
+    "npm ci",
+    "[ -f fixtures.db ] || .venv/bin/python tests/fixtures.py fixtures.db"
+  ],
+  "install": [
+    "python -m venv .venv && .venv/bin/python -m pip install -e . --group dev",
+    "npm ci",
+    "[ -f fixtures.db ] || .venv/bin/python tests/fixtures.py fixtures.db"
+  ],
+  "services": {
+    "web": {
+      "cmd": "cd /workspace/app && /workspace/app/.venv/bin/python -m datasette serve /workspace/app/fixtures.db --reload --host 0.0.0.0 --port \"$PORT\"",
+      "port": 8001,
+      "url": true,
+      "healthcheck": {
+        "path": "/"
+      },
+      "displayName": "Datasette"
+    }
+  },
+  "env_schema": []
+}
