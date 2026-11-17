@@ -1,0 +1,23 @@
+{
+  "$schema": "https://homemade.dev/schemas/latest/config.json",
+  "warmup": [
+    "uv sync",
+    "npm ci"
+  ],
+  "install": [
+    "uv sync",
+    "npm ci"
+  ],
+  "services": {
+    "web": {
+      "cmd": "exec .venv/bin/datasette serve data.db --create --reload --host 0.0.0.0 --port \"$PORT\"",
+      "port": 8001,
+      "url": true,
+      "healthcheck": {
+        "path": "/"
+      },
+      "displayName": "Datasette"
+    }
+  },
+  "env_schema": []
+}
